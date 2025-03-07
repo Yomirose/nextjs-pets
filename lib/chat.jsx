@@ -32,8 +32,8 @@ export default function Chat() {
 
         if (!isChatOpen) {
             setUnreadCount(prev => prev + 1)
-        }
-    }, [messageLog])
+        } 
+    }, [messageLog, isChatOpen])
 
     function openChatClick() {
         setIsChatOpen(true)
@@ -54,14 +54,14 @@ export default function Chat() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({message: userMassage, socket_id: socketId})
+            body: JSON.stringify({message: userMassage.trim(), socket_id: socketId})
         })
-        setMessageLog(prev => [...prev, {selfMassage: true, message: userMassage}])
+        setMessageLog(prev => [...prev, {selfMassage: true, message: userMassage.trim()}])
         setUserMassage("")
     }
 
     function handleInputChange(e) {
-        setUserMassage(e.target.value.trim())
+        setUserMassage(e.target.value)
     }
 
     return (
