@@ -25,14 +25,15 @@ export default function Chat() {
         })
     }, []) 
 
-    useEffect(() => {
+    useEffect(() => {   
         if (messageLog.length) {
             chatLogElement.current.scrollTop = chatLogElement.current.scrollHeight
         }
-
-        if (!isChatOpen) {
+        if (!isChatOpen && messageLog.length > 0) {
             setUnreadCount(prev => prev + 1)
-        } 
+        } else {
+            setUnreadCount(0);
+        }
     }, [messageLog, isChatOpen])
 
     function openChatClick() {
@@ -44,6 +45,7 @@ export default function Chat() {
     }
 
     function closeChatClick() {
+        console.log("Closing chat...");
         setIsChatOpen(false)
     }
 
